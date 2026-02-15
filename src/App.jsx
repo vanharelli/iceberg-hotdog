@@ -129,7 +129,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#001529] relative overflow-x-hidden">
+    <div className="app-container">
+      <div className="min-h-screen bg-[#001529] relative overflow-x-hidden">
       {/* Background Image Layer */}
       <div className="fixed inset-0 z-0">
         <img 
@@ -231,6 +232,7 @@ function App() {
         )}
       </AnimatePresence>
       <ReviewPulse />
+      </div>
     </div>
   );
 }

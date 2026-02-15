@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { X, Trash2, ShoppingBag, ArrowRight, ChevronUp, ChevronDown } from 'lucide-react';
 
 export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem }) {
-  const [orderType, setOrderType] = useState('delivery'); // 'delivery' or 'pickup'
+  const [orderType, setOrderType] = useState('pickup'); // 'delivery' or 'pickup'
   const [fullName, setFullName] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [address, setAddress] = useState('');
