@@ -1,0 +1,20 @@
+{
+  "name": "ICEBERG HOT DOG",
+  "short_name": "ICEBERG",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#001529",
+  "theme_color": "#0077FF",
+  "icons": [
+    {
+      "src": "/logo-iceberg.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo-iceberg.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
