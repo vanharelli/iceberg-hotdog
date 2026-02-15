@@ -177,8 +177,8 @@ function App() {
               
               <div className="space-y-2">
                 <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter drop-shadow-2xl">
-                ICEBERG <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-iceberg to-cyan-300">HOT DOG</span>
+                  ICEBERG <br />
+                  <span className="shimmer-hotdog">HOT DOG</span>
                 </h1>
                 <p className="text-gray-400 font-medium text-lg tracking-wide drop-shadow-md">
                     O Sabor que Afunda sua Fome.

@@ -195,6 +195,29 @@ img {
   border-color: #25c522ff;
 }
 
+.shimmer-hotdog {
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff 40%,
+    #e5e5e5 50%,
+    #ffffff 60%,
+    #ffffff 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  animation: shimmer-swipe 3.5s linear infinite;
+}
+
+@keyframes shimmer-swipe {
+  to {
+    background-position: 200% center;
+  }
+}
+
 .google-icon {
   width: 18px;
   height: 18px;

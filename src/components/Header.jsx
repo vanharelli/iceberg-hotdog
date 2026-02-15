@@ -6,7 +6,17 @@ export default function Header({ cartCount = 0, onCartClick, onInstallClick }) {
   const [showInstall, setShowInstall] = useState(true);
 
   useEffect(() => {
-    setShowInstall(true);
+    try {
+      const isStandalone = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches;
+      const isIOSStandalone = typeof navigator !== 'undefined' && navigator.standalone;
+      if (isStandalone || isIOSStandalone) {
+        setShowInstall(false);
+      } else {
+        setShowInstall(true);
+      }
+    } catch (_) {
+      setShowInstall(true);
+    }
   }, []);
 
   return (
