@@ -164,7 +164,7 @@ function App() {
           onCartClick={() => setIsCartOpen(true)}
           onInstallClick={handleInstallClick}
         />
-        <div className="fixed top-20 left-0 w-full z-[100]">
+        <div className="fixed top-18 left-0 w-full z-[100]">
           <ReviewTicker />
         </div>
 
