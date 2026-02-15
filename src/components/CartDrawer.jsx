@@ -217,7 +217,7 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem }) {
                   }}
                   className={`py-2 rounded-lg text-sm font-bold transition-all border ${
                     orderType === 'delivery'
-                      ? 'bg-iceberg text-white border-iceberg'
+                      ? 'bg-blue-600 text-white border-blue-600'
                       : 'bg-white/5 text-gray-400 border-white/10 hover:border-white/30'
                   }`}
                 >
@@ -227,7 +227,7 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem }) {
                   onClick={() => setOrderType('pickup')}
                   className={`py-2 rounded-lg text-sm font-bold transition-all border ${
                     orderType === 'pickup'
-                      ? 'bg-iceberg text-white border-iceberg'
+                      ? 'bg-blue-600 text-white border-blue-600'
                       : 'bg-white/5 text-gray-400 border-white/10 hover:border-white/30'
                   }`}
                 >
@@ -307,7 +307,7 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem }) {
                       onClick={() => setPaymentMethod(method)}
                       className={`px-2 py-2 rounded-lg text-xs font-bold transition-all border ${
                         paymentMethod === method 
-                          ? 'bg-iceberg text-black border-iceberg' 
+                          ? 'bg-blue-600 text-white border-blue-600'
                           : 'bg-white/5 text-gray-400 border-white/10 hover:border-white/30'
                       }`}
                     >
