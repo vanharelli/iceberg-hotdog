@@ -12,6 +12,7 @@ import { ReviewPulse } from './components/ReviewPulse';
 import { preloadImages } from './logic/PreloadEngine';
 
 function App() {
+  localStorage.clear();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
