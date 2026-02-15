@@ -3,7 +3,7 @@
   "short_name": "ICEBERG",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#001529",
+  "background_color": "#0077FF", 
   "theme_color": "#0077FF",
   "icons": [
     {
