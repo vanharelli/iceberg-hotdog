@@ -20,7 +20,7 @@ export default function Header({ cartCount = 0, onCartClick, onInstallClick }) {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-[100] flex items-center justify-between px-6 py-4 bg-gradient-to-b from-[#001529]/90 to-transparent backdrop-blur-sm border-b border-white/5">
+    <header className="fixed top-0 left-0 w-full z-[120] flex items-center justify-between px-6 py-4 bg-gradient-to-b from-[#001529]/90 to-transparent backdrop-blur-sm border-b border-white/5">
       {/* Localização e Avaliação (Lateral Esquerda) */}
       {showInstall && (
         <button 
