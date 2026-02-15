@@ -157,17 +157,20 @@ body {
     scrollbar-width: none;  /* Firefox */
 }
 
-/* PROTOCOLO DE SEGURANÇA NÍVEL 9 */
+/* ANTI-CÓPIA NÍVEL 9 */
 body {
-  user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
+/* Proteção adicional para imagens e logos */
 img {
   pointer-events: none;
   -webkit-user-drag: none;
+  user-drag: none;
 }
 
 .btn-google-review {
