@@ -8,11 +8,10 @@ import ProductDetails from './components/ProductDetails';
 import CartDrawer from './components/CartDrawer';
 import FloatingCartButton from './components/FloatingCartButton';
 import { menuData } from './data/menu';
-import { ReviewPulse } from './components/ReviewPulse';
+import ReviewTicker from './components/ReviewTicker';
 import { preloadImages } from './logic/PreloadEngine';
 
 function App() {
-  localStorage.clear();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -142,16 +141,19 @@ function App() {
       </div>
 
       {/* Content Layer */}
-      <div className="relative z-10 flex flex-col min-h-screen">
+      <div className="relative z-[70] flex flex-col min-h-screen">
         <Header 
           cartCount={cart.length} 
           onCartClick={() => setIsCartOpen(true)}
           onInstallClick={handleInstallClick}
         />
-        
-        <main className="pt-24 flex-grow">
+        <div className="fixed top-16 left-0 w-full z-[100]">
+          <ReviewTicker />
+        </div>
+
+        <main className="flex-grow min-h-screen w-full pt-24 md:pt-28">
           {/* Hero Section */}
-          <div className="px-6 text-center space-y-4 mb-4">
+          <div className="w-full text-center space-y-4 mb-4">
               <div className="flex justify-center">
                 <StatusBadge />
               </div>
@@ -161,7 +163,7 @@ function App() {
                 ICEBERG <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-iceberg to-cyan-300">HOT DOG</span>
                 </h1>
-                <p className="text-gray-400 font-medium text-lg tracking-wide max-w-lg mx-auto drop-shadow-md">
+                <p className="text-gray-400 font-medium text-lg tracking-wide drop-shadow-md">
                     O Sabor que Afunda sua Fome.
                 </p>
               </div>
@@ -231,7 +233,6 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
-      <ReviewPulse />
       </div>
     </div>
   );

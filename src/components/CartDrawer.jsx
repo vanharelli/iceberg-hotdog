@@ -91,7 +91,7 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex justify-end pointer-events-none">
+    <div className="fixed inset-0 z-[120] flex justify-end pointer-events-none">
       {/* Backdrop */}
       <motion.div 
         initial={{ opacity: 0 }}

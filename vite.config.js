@@ -6,5 +6,8 @@ export default defineConfig({
   base: '/',
   server: {
     host: true
+  },
+  preview: {
+    allowedHosts: ['subpyramidical-prestudiously-patty.ngrok-free.dev']
   }
 })

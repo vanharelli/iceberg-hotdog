@@ -30,7 +30,7 @@ export default function FloatingCartButton({ cartCount, onClick }) {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
-      className="fixed bottom-6 right-6 z-40 flex items-center justify-center p-4 bg-[#0077FF] text-white rounded-full shadow-[0_0_20px_rgba(0,119,255,0.5)] border border-white/10 backdrop-blur-sm hover:bg-[#0066CC] transition-colors"
+      className="fixed bottom-6 right-6 z-[100] flex items-center justify-center p-4 bg-[#0077FF] text-white rounded-full shadow-[0_0_20px_rgba(0,119,255,0.5)] border border-white/10 backdrop-blur-sm hover:bg-[#0066CC] transition-colors"
     >
       <div className="relative">
         <ShoppingBag size={24} />

@@ -15,7 +15,7 @@ export default function ProductCard({ name, price, image, isSpecial, description
               e.target.onerror = null;
               e.target.src = 'https://placehold.co/400x300/1e293b/white?text=ICEBERG';
             }}
-            className="w-full h-full object-cover transition-transform duration-500 hover:scale-110 product-image"
+            className="w-full object-cover transition-transform duration-500 hover:scale-110 product-image"
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-gray-500">

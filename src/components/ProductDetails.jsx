@@ -129,7 +129,7 @@ export default function ProductDetails({ product, onClose, onAddToCart }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex flex-col bg-black/90 backdrop-blur-xl overflow-hidden"
+      className="fixed inset-0 z-[110] flex flex-col bg-black/90 backdrop-blur-xl overflow-hidden"
     >
       {/* Header / Top Navigation */}
       <div className="absolute top-0 left-0 w-full p-4 z-20 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent">

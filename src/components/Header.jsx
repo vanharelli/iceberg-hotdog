@@ -20,7 +20,7 @@ export default function Header({ cartCount = 0, onCartClick, onInstallClick }) {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-4 bg-gradient-to-b from-[#001529]/90 to-transparent backdrop-blur-sm border-b border-white/5">
+    <header className="fixed top-0 left-0 w-full z-[100] flex items-center justify-between px-6 py-4 bg-gradient-to-b from-[#001529]/90 to-transparent backdrop-blur-sm border-b border-white/5">
       {/* Localização e Avaliação (Lateral Esquerda) */}
       {showInstall && (
         <button 
@@ -83,7 +83,7 @@ export default function Header({ cartCount = 0, onCartClick, onInstallClick }) {
         </a>
 
         <a 
-          href="https://www.google.com/maps/place/Iceberg+Hot+Dog/@-15.871547,-47.9707731,17z/data=!4m6!3m5!1s0x935a2f7c4b4234c9:0x6f1dc107d28d179!8m2!3d-15.871547!4d-47.9707731!16s%2Fg%2F11gy67cmxy?entry=ttu&g_ep=EgoyMDI2MDIxMS4wIKXMDSoASAFQAw%3D%3D" 
+          href="https://www.google.com/maps/dir/?api=1&destination=Iceberg+Hot+Dog&destination_place_id=ChIJyTRCS3wvWpMRedEofRDc8QY&travelmode=driving" 
           target="_blank" 
           rel="noopener noreferrer"
           className="text-gray-300 hover:text-[#0077FF] transition-colors"
