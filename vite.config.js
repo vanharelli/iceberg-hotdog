@@ -8,7 +8,6 @@ export default defineConfig({
     host: true
   },
   preview: {
-    allowedHosts: ['subpyramidical-prestudiously-patty.ngrok-free.dev'],
     port: 4173,
     strictPort: true
   }
