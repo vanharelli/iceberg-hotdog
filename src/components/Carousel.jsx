@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ProductCard from './ProductCard';
 
-export default function Carousel({ title, items, onProductClick }) {
+export default function Carousel({ title, items, onProductClick, priorityImageIds = [] }) {
   const containerRef = useRef(null);
   const cardRefs = useRef([]);
   const [isDown, setIsDown] = useState(false);
@@ -143,6 +143,7 @@ export default function Carousel({ title, items, onProductClick }) {
         style={containerStyle}
       >
         {items.map((item, index) => {
+          const isPriority = priorityImageIds.includes(item.id);
           return (
             <motion.div
               key={item.id}
@@ -177,6 +178,7 @@ export default function Carousel({ title, items, onProductClick }) {
                   image={item.img}
                   description={item.description}
                   isSpecial={item.isSpecial}
+                  isPriority={isPriority}
                 />
               </div>
             </motion.div>

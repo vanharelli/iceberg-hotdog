@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-export default function ProductCard({ name, price, image, isSpecial, description }) {
+export default function ProductCard({ name, price, image, isSpecial, description, isPriority = false }) {
   return (
     <div className="w-full h-full flex flex-col">
       <div className="h-[45%] relative overflow-hidden rounded-t-xl shrink-0">
@@ -11,6 +11,8 @@ export default function ProductCard({ name, price, image, isSpecial, description
             alt={name} 
             crossOrigin="anonymous"
             referrerPolicy="no-referrer"
+            loading={isPriority ? 'eager' : 'lazy'}
+            fetchPriority={isPriority ? 'high' : 'auto'}
             onError={(e) => {
               e.target.onerror = null;
               e.target.src = 'https://placehold.co/400x300/1e293b/white?text=ICEBERG';

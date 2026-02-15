@@ -11,6 +11,23 @@ import { menuData } from './data/menu';
 import ReviewTicker from './components/ReviewTicker';
 import { preloadImages } from './logic/PreloadEngine';
 
+const PRIORITY_IMAGE_IDS = (() => {
+  const ids = [];
+  try {
+    for (const category of menuData) {
+      if (!Array.isArray(category.items)) continue;
+      for (const item of category.items) {
+        if (!item || !item.id) continue;
+        ids.push(item.id);
+        if (ids.length >= 4) {
+          return ids;
+        }
+      }
+    }
+  } catch (_) {}
+  return ids;
+})();
+
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState([]);
@@ -176,6 +193,7 @@ function App() {
                 title={category.category} 
                 items={category.items} 
                 onProductClick={handleProductClick}
+                priorityImageIds={PRIORITY_IMAGE_IDS}
              />
           ))}
         </main>
