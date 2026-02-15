@@ -20,6 +20,10 @@ body,
   padding-right: env(safe-area-inset-right);
 }
 
+body {
+  overscroll-behavior-y: contain;
+}
+
 .app-container {
   display: flex;
   flex-direction: column;
