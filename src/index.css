@@ -199,10 +199,10 @@ img {
   background: linear-gradient(
     90deg,
     #ffffff 0%,
-    #ffffff 40%,
-    #e5e5e5 50%,
-    #ffffff 60%,
-    #ffffff 100%
+    #e5e5e5 35%,
+    #9ca3af 55%,
+    #0077ff 80%,
+    #22d3ee 100%
   );
   background-size: 200% auto;
   background-clip: text;
