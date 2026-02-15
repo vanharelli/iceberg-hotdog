@@ -190,7 +190,10 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem }) {
 
         {/* Footer */}
         {cart.length > 0 && (
-          <div className="p-6 bg-[#000F1F] border-t border-white/10 space-y-4">
+          <div
+            className="p-6 bg-[#000F1F] border-t border-white/10 space-y-4"
+            style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 24px)' }}
+          >
             
             {/* Nome completo */}
             <div className="space-y-2">
