@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    { "source": "/cardapio", "destination": "/" },
+    { "source": "/og-whatsapp.png", "destination": "/logo-iceberg-preview.png" }
+  ],
+  "redirects": [
+    { "source": "/og-image.png", "destination": "/iceberg.png", "permanent": false }
+  ]
+}

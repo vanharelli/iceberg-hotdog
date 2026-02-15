@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0077FF" />
+    <meta name="msapplication-TileColor" content="#000000" />
+    
+    <!-- Metadados Open Graph (WhatsApp/Social) -->
+    <meta property="og:title" content="ICEBERG HOT DOG | O sabor inigualável, valor irresistível e a suculência que você só encontra aqui." />
+    <meta property="og:description" content="Cardápio Digital Interativo. Os melhores Hot Dogs e Burguers artesanais do Núcleo Bandeirante. Peça agora!" />
+    <meta property="og:image" content="https://iceberghotdog.vercel.app/og-image.png" />
+    <meta property="og:image:secure_url" content="https://iceberghotdog.vercel.app/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://iceberghotdog.vercel.app/cardapio" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="ICEBERG HOT DOG" />
+
+    <!-- Metadados para Twitter e outros crawlers -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ICEBERG HOT DOG | O Sabor Que Afunda a Concorrência" />
+    <meta name="twitter:description" content="Cardápio Digital Interativo. Os melhores Hot Dogs e Burguers artesanais do Núcleo Bandeirante. Peça agora!" />
+    <meta name="twitter:image" content="https://iceberghotdog.vercel.app/logo-iceberg-preview.png" />
+    
+    <!-- Fallback de Imagem -->
+    <link rel="image_src" href="https://iceberghotdog.vercel.app/logo-iceberg-preview.png" />
+    <meta itemprop="image" content="https://iceberghotdog.vercel.app/logo-iceberg-preview.png" />
+
+    <title>ICEBERG | Cardápio Digital</title>
+    <link rel="manifest" href="/manifest.json">
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
