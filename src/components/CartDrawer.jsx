@@ -217,7 +217,7 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem }) {
                   }}
                   className={`py-2 rounded-lg text-sm font-bold transition-all border ${
                     orderType === 'delivery'
-                      ? 'bg-iceberg text-black border-iceberg'
+                      ? 'bg-iceberg text-white border-iceberg'
                       : 'bg-white/5 text-gray-400 border-white/10 hover:border-white/30'
                   }`}
                 >
@@ -227,7 +227,7 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem }) {
                   onClick={() => setOrderType('pickup')}
                   className={`py-2 rounded-lg text-sm font-bold transition-all border ${
                     orderType === 'pickup'
-                      ? 'bg-iceberg text-black border-iceberg'
+                      ? 'bg-iceberg text-white border-iceberg'
                       : 'bg-white/5 text-gray-400 border-white/10 hover:border-white/30'
                   }`}
                 >
