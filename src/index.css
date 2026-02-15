@@ -165,3 +165,33 @@ img {
   pointer-events: none;
   -webkit-user-drag: none;
 }
+
+.btn-google-review {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+  backdrop-filter: blur(5px);
+}
+
+.btn-google-review:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #25c522ff;
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+}

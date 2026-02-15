@@ -71,7 +71,7 @@ export default function Header({ cartCount = 0, onCartClick, onInstallClick }) {
         </motion.div>
       </div>
       
-      {/* Lado Direito: Instagram e Localização */}
+      {/* Lado Direito: Instagram, Avaliação e Localização */}
       <div className="flex items-center gap-4">
         <a 
           href="https://instagram.com/iceberg_hotdog" 
@@ -80,6 +80,24 @@ export default function Header({ cartCount = 0, onCartClick, onInstallClick }) {
           className="text-gray-300 hover:text-[#E1306C] transition-colors"
         >
           <Instagram size={24} />
+        </a>
+
+        <a
+          href="https://search.google.com/local/writereview?placeid=ChIJyTRCS3wvWpMRedEofRDc8QY"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-300 hover:text-[#D4AF37] transition-colors flex items-center"
+          title="Avaliar no Google"
+        >
+          <div className="flex flex-col items-center leading-none">
+            <Star
+              size={22}
+              className="text-[#D4AF37] fill-[#D4AF37] drop-shadow-[0_0_12px_rgba(212,175,55,0.9)] animate-pulse"
+            />
+            <span className="text-[9px] text-gray-400/70 mt-0.5">
+              avaliar
+            </span>
+          </div>
         </a>
 
         <a 
