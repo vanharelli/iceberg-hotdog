@@ -39,33 +39,6 @@ function App() {
     }
   }, []);
 
-  // PROTOCOLO DE BLINDAGEM - BLOQUEIO DE INSPEÇÃO 
-  useEffect(() => { 
-    const handleContextMenu = (e) => e.preventDefault(); 
-    const handleKeyDown = (e) => { 
-      // Bloqueia F12 
-      if (e.keyCode === 123) e.preventDefault(); 
-      // Bloqueia Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C 
-      if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) e.preventDefault(); 
-      // Bloqueia Ctrl+U (View Source) 
-      if (e.ctrlKey && e.keyCode === 85) e.preventDefault(); 
-      // Bloqueia Cmd+Opt+I (Mac) 
-      if (e.metaKey && e.altKey && e.keyCode === 73) e.preventDefault(); 
-    }; 
- 
-    document.addEventListener('contextmenu', handleContextMenu); 
-    document.addEventListener('keydown', handleKeyDown); 
- 
-    return () => { 
-      document.removeEventListener('contextmenu', handleContextMenu); 
-      document.removeEventListener('keydown', handleKeyDown); 
-    }; 
-  }, []);
-
-  
-
-  
-
   useEffect(() => {}, []);
 
   const [installPrompt, setInstallPrompt] = useState(null);
@@ -175,6 +148,8 @@ function App() {
         <img 
           src="/background.png" 
           alt="Background" 
+          loading="eager"
+          fetchPriority="high"
           className="w-full h-full object-cover opacity-60 blur-sm scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#001529]/80 via-[#001529]/60 to-black/90" />

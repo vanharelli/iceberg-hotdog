@@ -11,7 +11,7 @@ export default function ProductCard({ name, price, image, isSpecial, description
             alt={name} 
             crossOrigin="anonymous"
             referrerPolicy="no-referrer"
-            loading={isPriority ? 'eager' : 'lazy'}
+            loading="eager"
             fetchPriority={isPriority ? 'high' : 'auto'}
             onError={(e) => {
               e.target.onerror = null;

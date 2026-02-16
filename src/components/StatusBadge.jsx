@@ -49,7 +49,7 @@ export default function StatusBadge() {
             onClick={() => setShowHours(!showHours)}
             className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer ${
             isOpen 
-                ? 'bg-green-500/20 border-green-500/50 text-green-400 hover:bg-green-500/30' 
+                ? 'bg-neon-green/20 border-neon-green/50 text-neon-green hover:bg-neon-green/30' 
                 : 'bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30'
             }`}
         >

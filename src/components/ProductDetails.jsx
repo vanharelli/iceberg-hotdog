@@ -259,7 +259,7 @@ export default function ProductDetails({ product, onClose, onAddToCart }) {
                     (isBeverageCollection && totalPrice === 0) 
                     ? 'bg-gray-700 text-gray-400 cursor-not-allowed shadow-none' 
                     : isAdding
-                        ? 'bg-green-500 text-white'
+                        ? 'bg-neon-green text-white'
                         : 'bg-[#0077FF] hover:bg-[#0066CC] text-white'
                 }`}
             >

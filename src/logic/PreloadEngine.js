@@ -17,15 +17,17 @@ const collectMenuImages = (menu) => {
 };
 
 export const preloadImages = (menu) => {
-  const staticAssets = ['/logo-iceberg.png', '/bebidas.png'];
-  const dynamicAssets = collectMenuImages(menu);
-  const imageAssets = Array.from(new Set([...staticAssets, ...dynamicAssets]));
-  imageAssets.forEach((src) => {
-    try {
-      const img = new Image();
-      img.loading = 'eager';
-      img.fetchPriority = 'high';
-      img.src = src;
-    } catch (_) {}
-  });
+  try {
+    const staticAssets = ['/logo-iceberg.png', '/background.png', '/bebidas.png'];
+    const dynamicAssets = collectMenuImages(menu);
+    const imageAssets = Array.from(new Set([...staticAssets, ...dynamicAssets]));
+    imageAssets.forEach((src) => {
+      try {
+        const img = new Image();
+        img.loading = 'eager';
+        img.fetchPriority = 'high';
+        img.src = src;
+      } catch (_) {}
+    });
+  } catch (_) {}
 };

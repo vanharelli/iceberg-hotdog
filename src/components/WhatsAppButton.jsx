@@ -22,7 +22,7 @@ export default function WhatsAppButton() {
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-green-500/30 transition-all duration-300 transform hover:scale-105 group"
+      className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-neon-green hover:bg-neon-green/90 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-neon-green/30 transition-all duration-300 transform hover:scale-105 group"
     >
       <span className="font-bold text-sm hidden md:block">FAZER PEDIDO</span>
       <MessageCircle size={24} className="fill-white" />
