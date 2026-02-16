@@ -60,7 +60,6 @@ button {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  margin-top: 4px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }

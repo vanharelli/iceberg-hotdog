@@ -11,6 +11,26 @@ import { menuData } from './data/menu';
 import ReviewTicker from './components/ReviewTicker';
 import { preloadImages } from './logic/PreloadEngine';
 
+class NotificationErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch() {}
+
+  render() {
+    if (this.state.hasError) {
+      return null;
+    }
+    return this.props.children;
+  }
+}
+
 const PRIORITY_IMAGE_IDS = (() => {
   const ids = [];
   try {
@@ -170,7 +190,7 @@ function App() {
           cartCount={cart.length} 
           onCartClick={() => setIsCartOpen(true)}
         />
-        <div className="fixed top-18 left-0 w-full z-[100]">
+        <div className="fixed top-18 left-0 w-full z-[18]">
           <ReviewTicker />
         </div>
 
@@ -178,7 +198,9 @@ function App() {
           {/* Hero Section */}
           <div className="w-full text-center space-y-4 mb-4">
               <div className="flex justify-center">
-                <StatusBadge />
+                <NotificationErrorBoundary>
+                  <StatusBadge />
+                </NotificationErrorBoundary>
               </div>
               
               <div className="space-y-2">
