@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MapPin, Star, Instagram, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function Header({ cartCount = 0, onCartClick, onInstallClick }) {
+export default function Header({ cartCount = 0, onCartClick }) {
   const [showInstall, setShowInstall] = useState(true);
 
   useEffect(() => {
@@ -23,9 +23,8 @@ export default function Header({ cartCount = 0, onCartClick, onInstallClick }) {
     <header className="fixed top-0 left-0 w-full z-[120] flex items-center justify-between px-6 py-4 bg-gradient-to-b from-[#001529]/90 to-transparent backdrop-blur-sm border-b border-white/5">
       {/* Localização e Avaliação (Lateral Esquerda) */}
       {showInstall && (
-        <button 
-          onClick={onInstallClick}
-          className="flex flex-col items-start max-w-[200px] hover:opacity-80 transition-opacity cursor-pointer group bg-transparent border-none p-0 text-left"
+        <div 
+          className="flex flex-col items-start max-w-[200px] opacity-80 transition-opacity cursor-default group bg-transparent border-none p-0 text-left"
         >
           <div className="flex items-center gap-1 text-xs text-gray-300 font-medium mb-1 group-hover:text-iceberg transition-colors">
             <Download size={12} className="text-iceberg shrink-0" />
@@ -34,7 +33,7 @@ export default function Header({ cartCount = 0, onCartClick, onInstallClick }) {
               animate={{ opacity: [1, 0.5, 1] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             >
-              INSTALAR APP
+              BAIXAR APP
             </motion.span>
           </div>
           <div className="flex items-center gap-0.5">
@@ -43,7 +42,7 @@ export default function Header({ cartCount = 0, onCartClick, onInstallClick }) {
             ))}
             <span className="text-[10px] text-gray-400 ml-1">(4.9)</span>
           </div>
-        </button>
+        </div>
       )}
 
       {/* Logo Centralizada */}
