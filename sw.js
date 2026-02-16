@@ -1,4 +1,6 @@
-const CACHE_NAME = 'iceberg-pwa-v1';
+const VERSION_HASH = 'iceberg-v1';
+const CACHE_PREFIX = 'iceberg-pwa-';
+const CACHE_NAME = `${CACHE_PREFIX}${VERSION_HASH}`;
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();

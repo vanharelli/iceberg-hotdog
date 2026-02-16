@@ -3,6 +3,10 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
+const VERSION_HASH = 'iceberg-v1';
+const CACHE_PREFIX = 'iceberg-pwa-';
+const CURRENT_CACHE_NAME = `${CACHE_PREFIX}${VERSION_HASH}`;
+
 const handleContextMenu = (e) => {
   e.preventDefault();
 };
@@ -30,6 +34,29 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker
       .register('/sw.js')
       .then(() => {
+        if ('caches' in window) {
+          caches
+            .keys()
+            .then((keys) => {
+              const appCaches = keys.filter((key) => key.startsWith(CACHE_PREFIX));
+              const hasCurrent = appCaches.includes(CURRENT_CACHE_NAME);
+              const hasOther = appCaches.some((key) => key !== CURRENT_CACHE_NAME);
+
+              if (hasOther && !hasCurrent) {
+                return Promise.all(
+                  appCaches.map((key) => caches.delete(key)),
+                ).then(() => {
+                  if (hasForcedReload) return;
+                  hasForcedReload = true;
+                  window.location.reload();
+                });
+              }
+
+              return undefined;
+            })
+            .catch(() => {});
+        }
+
         navigator.serviceWorker.addEventListener('controllerchange', () => {
           try {
             if (hasForcedReload) return;
