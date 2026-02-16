@@ -25,7 +25,7 @@ export const menuData = [
         name: "Cachorro Quente no Molho de Frango",
         description: "Suculentos cubos de filé de frango grelhados, envolvidos em queijo derretido e a exclusiva pasta de alho secreta. Uma combinação equilibrada que une o frescor do milho à crocância da batata palha, criando uma explosão de sabor em cada mordida.",
         price: "R$ 18,00",
-        img: "/dogdegrangonomolho.png.jpg",
+        img: "/dogdegrangonomolho.jpg",
         isSpecial: false,
         type: "food"
       },
@@ -34,7 +34,7 @@ export const menuData = [
         name: "Cachorro Quente de Strogonoff",
         description: "Cubos de frango suculentos em um molho cremoso de verdade, cobertos com queijo derretido e a nossa indispensável pasta de alho. Finalizado com milho fresco e o crocante da batata palha, é a escolha definitiva para quem busca saciedade e sabor equilibrado.",
         price: "R$ 20,00",
-        img: "/dogdeestrogonoff.png.png",
+        img: "/dogdeestrogonoff.png",
         isSpecial: false,
         type: "food"
       }
@@ -103,7 +103,7 @@ export const menuData = [
         name: "X-Salada",
         description: "O clássico elevado pelo equilíbrio. Carne artesanal suculenta com o toque defumado do presunto e queijo derretido, contrastando com a refrescância do alface e tomate selecionados. O abacaxi traz a nota agridoce estratégica, selada pela cremosidade da nossa pasta de alho secreta. Uma montagem completa para quem busca sabor e frescor.",
         price: "R$ 21,00",
-        img: "/xsalada.png.png",
+        img: "/xsalada.png",
         isSpecial: false,
         type: "food"
       },
@@ -131,7 +131,7 @@ export const menuData = [
         name: "X-Tudo",
         description: "A montagem definitiva para quem não aceita nada menos que o máximo. Carne artesanal suculenta, salsicha e ovo, reforçados pela crocância do bacon e a cremosidade do queijo e presunto. O frescor do alface e tomate encontra o toque doce do abacaxi, tudo unido pela nossa famosa pasta de alho. É o lanche gigante que entrega sabor, textura e saciedade total em cada mordida.",
         price: "R$ 30,00",
-        img: "/xtudo.png.png",
+        img: "/xtudo.png",
         isSpecial: false,
         type: "food"
       },
@@ -154,7 +154,7 @@ export const menuData = [
         name: "BEBIDAS GELADAS",
         description: "A linha de frente para quem busca o contraste perfeito. Nossa seleção de bebidas foi projetada para entregar o choque térmico que o seu paladar exige. Seja com o estalo inconfundível de um refrigerante trincando, a pureza vital dos nossos sucos selecionados ou a leveza cristalina da nossa água mineral, cada gole é um evento. Servidas em temperatura subzero, elas são o combustível estratégico que limpa as papilas gustativas, corta a gordura e prepara você para a próxima mordida épica do seu lanche. Refrescância absoluta, do primeiro ao último gole.",
         price: "",
-        img: "/bebidas.png.png",
+        img: "/bebidas.png",
         isSpecial: false,
         type: "beverage_collection",
         beverages: [
