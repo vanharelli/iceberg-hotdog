@@ -33,6 +33,7 @@ function App() {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const visibilityReloadedRef = useRef(false);
+  const [showIosTutorial, setShowIosTutorial] = useState(false);
 
   useEffect(() => {
     if (window.location.search) {
@@ -47,6 +48,27 @@ function App() {
 
   useEffect(() => {
     preloadImages(menuData);
+  }, []);
+
+  useEffect(() => {
+    let timeoutId;
+    try {
+      const ua = window.navigator && window.navigator.userAgent ? window.navigator.userAgent : '';
+      const isIOS = /iPhone|iPad|iPod/i.test(ua);
+      const isStandalone = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches;
+      const isIOSStandalone = typeof window.navigator !== 'undefined' && window.navigator.standalone;
+      if (isIOS && !(isStandalone || isIOSStandalone)) {
+        setShowIosTutorial(true);
+        timeoutId = setTimeout(() => {
+          setShowIosTutorial(false);
+        }, 2000);
+      }
+    } catch (_) {}
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -275,6 +297,18 @@ function App() {
             className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] bg-black/90 text-white px-6 py-3 rounded-full shadow-lg border border-white/20 text-sm font-medium whitespace-nowrap backdrop-blur-md pointer-events-none"
           >
             Clique novamente para sair
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showIosTutorial && (
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 40 }}
+            className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[110] bg-black/90 text-white px-4 py-3 rounded-2xl shadow-lg border border-white/10 text-xs font-medium text-center max-w-xs backdrop-blur-md"
+          >
+            No iPhone, toque em compartilhar e depois em Adicionar à Tela de Início.
           </motion.div>
         )}
       </AnimatePresence>

@@ -34,7 +34,7 @@ export default function Header({ cartCount = 0, onCartClick, onInstallClick }) {
               animate={{ opacity: [1, 0.5, 1] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             >
-              BAIXAR APP
+              INSTALAR APP
             </motion.span>
           </div>
           <div className="flex items-center gap-0.5">

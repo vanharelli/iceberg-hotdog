@@ -28,6 +28,23 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  if (event.request.mode === 'navigate') {
+    event.waitUntil(
+      caches
+        .keys()
+        .then((keys) =>
+          Promise.all(
+            keys.map((key) => {
+              if (key !== CACHE_NAME && key.startsWith(CACHE_PREFIX)) {
+                return caches.delete(key);
+              }
+            }),
+          ),
+        )
+        .catch(() => {}),
+    );
+  }
+
   event.respondWith(
     fetch(event.request)
       .then((response) => {
@@ -45,4 +62,3 @@ self.addEventListener('fetch', (event) => {
       ),
   );
 });
-
