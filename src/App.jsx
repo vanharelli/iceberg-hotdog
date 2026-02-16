@@ -54,14 +54,31 @@ function App() {
       try {
         if (document.visibilityState === 'hidden') {
           visibilityReloadedRef.current = false;
+          return;
         }
-        if (document.visibilityState === 'visible' && !visibilityReloadedRef.current) {
-          visibilityReloadedRef.current = true;
-          if (window.location.pathname !== '/') {
-            window.location.replace('/');
-          } else {
-            window.location.reload();
+
+        if (document.visibilityState !== 'visible') {
+          return;
+        }
+
+        let isStandalone = false;
+        try {
+          if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+            isStandalone = true;
+          } else if (window.navigator && window.navigator.standalone) {
+            isStandalone = true;
           }
+        } catch (_) {}
+
+        if (!isStandalone || visibilityReloadedRef.current) {
+          return;
+        }
+
+        visibilityReloadedRef.current = true;
+        if (window.location.pathname !== '/') {
+          window.location.replace('/');
+        } else {
+          window.location.reload();
         }
       } catch (_) {}
     };

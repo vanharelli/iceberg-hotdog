@@ -24,7 +24,20 @@ createRoot(document.getElementById('root')).render(
 )
 
 if ('serviceWorker' in navigator) {
+  let hasForcedReload = false;
+
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then(() => {
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          try {
+            if (hasForcedReload) return;
+            hasForcedReload = true;
+            window.location.reload();
+          } catch (_) {}
+        });
+      })
+      .catch(() => {});
   });
 }
