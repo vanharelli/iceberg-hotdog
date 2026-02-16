@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Header from './components/Header';
 import Carousel from './components/Carousel';
@@ -32,6 +32,7 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const visibilityReloadedRef = useRef(false);
 
   useEffect(() => {
     if (window.location.search) {
@@ -46,6 +47,29 @@ function App() {
 
   useEffect(() => {
     preloadImages(menuData);
+  }, []);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      try {
+        if (document.visibilityState === 'hidden') {
+          visibilityReloadedRef.current = false;
+        }
+        if (document.visibilityState === 'visible' && !visibilityReloadedRef.current) {
+          visibilityReloadedRef.current = true;
+          if (window.location.pathname !== '/') {
+            window.location.replace('/');
+          } else {
+            window.location.reload();
+          }
+        }
+      } catch (_) {}
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   useEffect(() => {
