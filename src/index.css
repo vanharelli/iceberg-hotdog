@@ -45,7 +45,7 @@
 
 @media all and (display-mode: standalone) {
   .app-container .review-ticker-wrapper {
-    top: calc(4.5rem - 2px);
+    top: calc(4.5rem - 9px);
   }
 }
 
