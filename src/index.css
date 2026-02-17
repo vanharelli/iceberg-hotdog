@@ -43,6 +43,16 @@
   position: relative;
 }
 
+@media all and (display-mode: standalone) {
+  .app-container header {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .app-container .review-ticker-wrapper {
+    top: calc(4.5rem + env(safe-area-inset-top));
+  }
+}
+
 .product-image {
   aspect-ratio: 16 / 9;
 }
