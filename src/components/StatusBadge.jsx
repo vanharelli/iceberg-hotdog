@@ -55,7 +55,7 @@ export default function StatusBadge() {
             onClick={() => setShowHours(!showHours)}
             className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer bg-iceberg/20 text-iceberg hover:bg-iceberg/30 ${
               isOpen
-                ? 'border-neon-green/60'
+                ? 'border-[#0077FF]/70'
                 : 'border-red-500/60'
             }`}
         >
@@ -73,10 +73,10 @@ export default function StatusBadge() {
                     animate={{ opacity: 1, y: 10, scale: 1 }}
                     exit={{ opacity: 0, y: -10, scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full mt-2 w-80 bg-[#001529]/60 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-2xl overflow-hidden"
+                    className="absolute top-full mt-2 w-80 z-[10] bg-[#001529]/60 backdrop-blur-2xl border border-[#0077FF]/40 rounded-2xl shadow-2xl overflow-hidden"
                 >
                     <div className="p-4 space-y-3 bg-gradient-to-b from-white/5 to-transparent">
-                        <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-2">
+                        <div className="flex items-center justify-between border-b border-[#0077FF]/30 pb-2 mb-2">
                             <h3 className="text-white font-bold flex items-center gap-2">
                                 <Clock size={16} className="text-iceberg" />
                                 Horário de Funcionamento
@@ -111,7 +111,7 @@ export default function StatusBadge() {
                             })}
                         </div>
                         
-                        <div className="pt-2 border-t border-white/10 text-center">
+                        <div className="pt-2 border-t border-[#0077FF]/30 text-center">
                             <p className="text-[10px] text-gray-500">
                                 Os horários podem sofrer alterações em feriados.
                             </p>

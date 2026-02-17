@@ -185,12 +185,12 @@ function App() {
       </div>
 
       {/* Content Layer */}
-      <div className="relative z-[70] flex flex-col min-h-screen">
+      <div className="relative z-[40] flex flex-col min-h-screen">
         <Header 
           cartCount={cart.length} 
           onCartClick={() => setIsCartOpen(true)}
         />
-        <div className="fixed top-18 left-0 w-full z-[18]">
+        <div className="fixed top-18 left-0 w-full z-[80]">
           <ReviewTicker />
         </div>
 

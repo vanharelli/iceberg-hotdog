@@ -9,76 +9,6 @@ export default function Carousel({ title, items, onProductClick, priorityImageId
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1025);
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!isDesktop) {
-      if (cardRefs.current) {
-        cardRefs.current.forEach((card) => {
-          if (card) {
-            card.classList.remove('active-card');
-          }
-        });
-      }
-      return;
-    }
-
-    if (!containerRef.current) return;
-    const cards = cardRefs.current.filter(Boolean);
-    if (!cards.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        let bestEntry = null;
-        let bestScore = 0;
-
-        entries.forEach((entry) => {
-          const score = entry.intersectionRatio;
-          if (score > bestScore) {
-            bestScore = score;
-            bestEntry = entry;
-          }
-        });
-
-        if (!bestEntry) return;
-
-        const target = bestEntry.target;
-        cards.forEach((card) => {
-          if (card === target) {
-            card.classList.add('active-card');
-          } else {
-            card.classList.remove('active-card');
-          }
-        });
-      },
-      {
-        root: containerRef.current,
-        threshold: [0.25, 0.5, 0.75, 1],
-      }
-    );
-
-    cards.forEach((card) => observer.observe(card));
-
-    return () => {
-      cards.forEach((card) => observer.unobserve(card));
-      observer.disconnect();
-    };
-  }, [isDesktop, items]);
 
   const handleMouseDown = (e) => {
     setIsDown(true);
@@ -108,26 +38,15 @@ export default function Carousel({ title, items, onProductClick, priorityImageId
     containerRef.current.scrollLeft = scrollLeft - walk;
   };
 
-  const handleWheel = (e) => {
-    if (!isDesktop || !containerRef.current) return;
-    e.preventDefault();
-    containerRef.current.scrollLeft += e.deltaY;
+  const containerStyle = {
+    scrollBehavior: 'smooth',
+    WebkitOverflowScrolling: 'touch',
+    scrollSnapType: 'x mandatory',
+    scrollPaddingInline: '7.5vw',
   };
 
-  const containerStyle = isDesktop
-    ? {
-        scrollBehavior: 'smooth',
-        WebkitOverflowScrolling: 'touch',
-      }
-    : {
-        scrollBehavior: 'smooth',
-        WebkitOverflowScrolling: 'touch',
-        scrollSnapType: 'x mandatory',
-        scrollPaddingInline: '7.5vw',
-      };
-
   return (
-    <div className="py-2 w-full relative lg:z-[70]">
+    <div className="py-2 w-full relative">
       <h2 className="text-2xl font-bold text-white mb-2 w-full px-4">
         {title}
       </h2>
@@ -138,7 +57,6 @@ export default function Carousel({ title, items, onProductClick, priorityImageId
         onMouseLeave={handleMouseLeave}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
-        onWheel={handleWheel}
         className={`relative flex items-stretch gap-15 overflow-x-auto px-4 py-10 no-scrollbar carousel-scroll ${isDown ? 'cursor-grabbing' : 'cursor-grab'}`}
         style={containerStyle}
       >
@@ -156,13 +74,9 @@ export default function Carousel({ title, items, onProductClick, priorityImageId
                   onProductClick(item);
                 }
               }}
-              initial={isDesktop ? {} : { scale: 0.9, opacity: 0.5, filter: 'blur(6px)' }}
-              whileInView={
-                isDesktop
-                  ? undefined
-                  : { scale: 1.05, opacity: 1, filter: 'blur(0px)' }
-              }
-              viewport={isDesktop ? undefined : { margin: '0px -10% 0px -10%' }}
+              initial={{ scale: 0.9, opacity: 0.5, filter: 'blur(6px)' }}
+              whileInView={{ scale: 1.05, opacity: 1, filter: 'blur(0px)' }}
+              viewport={{ margin: '0px -10% 0px -10%' }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
             >
               <div 

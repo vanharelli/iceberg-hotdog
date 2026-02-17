@@ -79,7 +79,7 @@ button {
 .active-card {
   opacity: 1;
   transform: scale(1.05);
-  border: 2px solid #25c522ff;
+  border: 2px solid #0077FF;
 }
 
 @media (max-width: 1023px) {
@@ -203,7 +203,7 @@ img {
 
 .btn-google-review:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: #25c522ff;
+  border-color: #0077FF;
 }
 
 .shimmer-hotdog {
