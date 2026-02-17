@@ -50,7 +50,7 @@ export default function StatusBadge() {
   const currentDayIndex = todayIndex === 0 ? 6 : todayIndex - 1;
 
   return (
-    <div className="relative z-[70] flex flex-col items-center mt-8">
+    <div className="relative flex flex-col items-center mt-8">
         <button 
             onClick={() => setShowHours(!showHours)}
             className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer bg-iceberg/20 text-iceberg hover:bg-iceberg/30 ${

@@ -190,7 +190,7 @@ function App() {
           cartCount={cart.length} 
           onCartClick={() => setIsCartOpen(true)}
         />
-        <div className="fixed top-14 left-0 w-full z-[18]">
+        <div className="fixed top-18 left-0 w-full z-[18]">
           <ReviewTicker />
         </div>
 

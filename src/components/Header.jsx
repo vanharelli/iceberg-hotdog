@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 
 export default function Header({ cartCount = 0, onCartClick }) {
   const [showInstall, setShowInstall] = useState(true);
+  const [installPromptEvent, setInstallPromptEvent] = useState(null);
+  const [canInstall, setCanInstall] = useState(false);
 
   useEffect(() => {
     try {
@@ -19,12 +21,40 @@ export default function Header({ cartCount = 0, onCartClick }) {
     }
   }, []);
 
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e) => {
+      try {
+        e.preventDefault();
+        setInstallPromptEvent(e);
+        setCanInstall(true);
+      } catch (_) {}
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    try {
+      if (!installPromptEvent) return;
+      installPromptEvent.prompt();
+      await installPromptEvent.userChoice.catch(() => {});
+      setInstallPromptEvent(null);
+      setCanInstall(false);
+    } catch (_) {}
+  };
+
   return (
     <header className="fixed top-0 left-0 w-full z-[120] flex items-center justify-between px-6 py-4 bg-gradient-to-b from-[#001529]/90 to-transparent backdrop-blur-sm border-b border-white/5">
       {/* Localização e Avaliação (Lateral Esquerda) */}
       {showInstall && (
-        <div 
-          className="flex flex-col items-start max-w-[200px] opacity-80 transition-opacity cursor-default group bg-transparent border-none p-0 text-left"
+        <button
+          type="button"
+          onClick={handleInstallClick}
+          disabled={!canInstall}
+          className="flex flex-col items-start max-w-[200px] opacity-80 transition-opacity cursor-pointer group bg-transparent border-none p-0 text-left disabled:opacity-50 disabled:cursor-default"
         >
           <div className="flex items-center gap-1 text-xs text-gray-300 font-medium mb-1 group-hover:text-iceberg transition-colors">
             <Download size={12} className="text-iceberg shrink-0" />
@@ -42,7 +72,7 @@ export default function Header({ cartCount = 0, onCartClick }) {
             ))}
             <span className="text-[10px] text-gray-400 ml-1">(4.9)</span>
           </div>
-        </div>
+        </button>
       )}
 
       {/* Logo Centralizada */}
