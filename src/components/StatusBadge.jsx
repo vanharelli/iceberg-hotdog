@@ -15,6 +15,12 @@ export default function StatusBadge() {
       const now = new Date();
       const hours = now.getHours();
       const minutes = now.getMinutes();
+      const day = now.getDay();
+      const mappedDayIndex = day === 0 ? 6 : day - 1;
+      if (mappedDayIndex === 0) {
+        setIsOpen(false);
+        return;
+      }
       
       const isEvening = (hours === 18 && minutes >= 30) || (hours > 18);
       const isEarlyMorning = hours < 1; 
@@ -47,15 +53,15 @@ export default function StatusBadge() {
     <div className="relative z-[70] flex flex-col items-center mt-8">
         <button 
             onClick={() => setShowHours(!showHours)}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer ${
-            isOpen 
-                ? 'bg-neon-green/20 border-neon-green/50 text-neon-green hover:bg-neon-green/30' 
-                : 'bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30'
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer bg-iceberg/20 text-iceberg hover:bg-iceberg/30 ${
+              isOpen
+                ? 'border-neon-green/60'
+                : 'border-red-500/60'
             }`}
         >
             <Clock size={16} />
             <span className="font-bold tracking-wider text-sm">
-                {isOpen ? 'ABERTO AGORA' : 'FECHADO AGORA'}
+                HORÁRIOS
             </span>
             <ChevronDown size={14} className={`transition-transform duration-300 ${showHours ? 'rotate-180' : ''}`} />
         </button>
