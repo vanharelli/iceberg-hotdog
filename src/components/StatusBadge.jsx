@@ -34,8 +34,8 @@ export default function StatusBadge() {
   }, []);
 
   const hoursData = [
-    { day: 'segunda-feira', time: 'Fechado', obs: '(Segunda-feira de carnaval)' },
-    { day: 'terça-feira', time: '18:30–01:00', obs: '(Carnaval)' },
+    { day: 'segunda-feira', time: 'Fechado' },
+    { day: 'terça-feira', time: '18:30–01:00' },
     { day: 'quarta-feira', time: '18:30–00:30' },
     { day: 'quinta-feira', time: '18:30–01:00' },
     { day: 'sexta-feira', time: '18:30–01:00' },
@@ -55,7 +55,7 @@ export default function StatusBadge() {
             onClick={() => setShowHours(!showHours)}
             className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer bg-iceberg/20 text-iceberg hover:bg-iceberg/30 ${
               isOpen
-                ? 'border-[#0077FF]/70'
+                ? 'border-green-500/70'
                 : 'border-red-500/60'
             }`}
         >
@@ -101,20 +101,9 @@ export default function StatusBadge() {
                                                 {item.time}
                                             </span>
                                         </div>
-                                        {item.obs && (
-                                            <span className="text-[10px] text-yellow-500/80 mt-0.5">
-                                                {item.obs}
-                                            </span>
-                                        )}
                                     </div>
                                 );
                             })}
-                        </div>
-                        
-                        <div className="pt-2 border-t border-[#0077FF]/30 text-center">
-                            <p className="text-[10px] text-gray-500">
-                                Os horários podem sofrer alterações em feriados.
-                            </p>
                         </div>
                     </div>
                 </motion.div>

@@ -156,13 +156,10 @@ function App() {
     setSelectedProduct(item);
   };
 
-  const [showFinalizeHint, setShowFinalizeHint] = useState(false);
   const handleAddToCart = (cartItem, action) => {
     setCart(prev => [...prev, cartItem]);
     setSelectedProduct(null);
     setIsCartOpen(false);
-    setShowFinalizeHint(true);
-    setTimeout(() => setShowFinalizeHint(false), 2500);
   };
 
   const handleRemoveItem = (cartId) => {
@@ -252,6 +249,7 @@ function App() {
             onClose={() => setIsCartOpen(false)}
             cart={cart}
             onRemoveItem={handleRemoveItem}
+            variant="screen"
           />
         )}
       </AnimatePresence>
@@ -264,18 +262,6 @@ function App() {
             className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] bg-black/90 text-white px-6 py-3 rounded-full shadow-lg border border-white/20 text-sm font-medium whitespace-nowrap backdrop-blur-md pointer-events-none"
           >
             Clique novamente para sair
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {cart.length > 0 && !isCartOpen && showFinalizeHint && (
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 40 }}
-            className="fixed bottom-24 right-6 z-[100] bg-black/80 text-white px-4 py-2 rounded-xl shadow-lg border border-white/10 text-sm font-semibold backdrop-blur-md pointer-events-none"
-          >
-            Finalizar seu pedido!
           </motion.div>
         )}
       </AnimatePresence>
