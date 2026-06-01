@@ -80,16 +80,6 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, varian
           timestamp: Date.now()
         };
         setDeliveryLocation(nextLocation);
-
-        const locationLink = `https://www.google.com/maps?q=${nextLocation.lat},${nextLocation.lng}`;
-        let locationMessage = `📌 *LOCALIZAÇÃO DO CLIENTE*\n`;
-        locationMessage += `Lat: ${nextLocation.lat}\n`;
-        locationMessage += `Lng: ${nextLocation.lng}\n`;
-        locationMessage += `Mapa: ${locationLink}\n`;
-        if (nextLocation.accuracy) {
-          locationMessage += `Precisão aprox.: ${Math.round(nextLocation.accuracy)}m\n`;
-        }
-        openWhatsappWithText(locationMessage);
       },
       () => {
         alert('Não foi possível obter a localização. Verifique as permissões do navegador.');
