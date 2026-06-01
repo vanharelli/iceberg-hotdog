@@ -40,7 +40,7 @@ export default function FloatingCartButton({ cartCount, onClick }) {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
-            className="ml-1 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full bg-white/15 border border-white/20 text-white text-sm font-black"
+            className="ml-1 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full bg-red-500 border border-[#001529]/40 text-white text-sm font-black animate-pulse"
           >
             {cartCount}
           </motion.span>
