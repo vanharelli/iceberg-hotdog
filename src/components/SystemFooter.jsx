@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, ArrowUpRight, Instagram, X } from 'lucide-react';
+import { Shield, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export default function SystemFooter() {
@@ -15,12 +15,13 @@ export default function SystemFooter() {
             Termos de uso e privacidade
           </button>
           <a
-            href="https://www.instagram.com/marketelli_"
+            href="https://www.marketelli.com"
             target="_blank"
-            className="group flex items-center gap-3"
+            rel="noopener noreferrer"
+            className="text-[10px] tracking-[3px] text-white/30 hover:text-white transition-all uppercase"
           >
-            <Instagram size={14} className="text-white/20 group-hover:text-purple-neon transition-all" />
-            <span className="text-[10px] tracking-[4px] text-white/30 group-hover:text-white transition-all uppercase">@marketelli_</span>
+            <span>Desenvolvido por </span>
+            <span className="shimmer-hotdog">www.marketelli.com</span>
           </a>
         </div>
 
@@ -29,16 +30,6 @@ export default function SystemFooter() {
             <div className="h-[1px] w-10 bg-white"></div>
             <Shield size={12} />
             <div className="h-[1px] w-10 bg-white"></div>
-          </div>
-
-          <div className="text-center space-y-3">
-            <p className="text-[9px] text-white/20 tracking-[5px] uppercase font-medium">
-              Arquitetura Focada em Performance e Agilidade
-            </p>
-            <p className="text-[8px] text-white/10 uppercase tracking-[3px] max-w-sm mx-auto leading-relaxed">
-              Desenvolvido por Marketelli Intelligence.
-              Sua privacidade é o nosso padrão.
-            </p>
           </div>
         </div>
       </div>

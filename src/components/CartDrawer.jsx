@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { X, Trash2, ShoppingBag, ArrowRight, ChevronUp, ChevronDown, ChevronLeft } from 'lucide-react';
 
 export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, variant = 'drawer' }) {
+  const phoneNumber = "5561992864160";
   const [step, setStep] = useState('review');
   const [orderType, setOrderType] = useState('pickup'); // 'delivery' or 'pickup'
   const [fullName, setFullName] = useState('');
@@ -10,7 +11,6 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, varian
   const [cep, setCep] = useState('');
   const [street, setStreet] = useState('');
   const [number, setNumber] = useState('');
-  const [complement, setComplement] = useState('');
   const [neighborhood, setNeighborhood] = useState('');
   const [city, setCity] = useState('');
   const [stateUf, setStateUf] = useState('');
@@ -18,11 +18,25 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, varian
   const [paymentMethod, setPaymentMethod] = useState('');
   const [changeFor, setChangeFor] = useState('');
   const [isDeliveryDetailsVisible, setIsDeliveryDetailsVisible] = useState(true);
+  const [deliveryLocation, setDeliveryLocation] = useState(null);
 
   const totalPrice = cart.reduce((total, item) => total + item.finalPrice, 0);
 
   const formatPrice = (price) => {
     return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  };
+
+  useEffect(() => {
+    if (orderType !== 'delivery') {
+      setDeliveryLocation(null);
+    }
+  }, [orderType]);
+
+  const openWhatsappWithText = (text) => {
+    const encodedMessage = encodeURIComponent(text);
+    const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    const newTab = window.open(url, '_blank', 'noopener,noreferrer');
+    if (!newTab) window.location.href = url;
   };
 
   useEffect(() => {
@@ -45,9 +59,47 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, varian
     return () => controller.abort();
   }, [cep, orderType]);
 
+  const handleGetLocation = () => {
+    if (typeof window === 'undefined') return;
+    if (!navigator.geolocation) {
+      alert('Seu dispositivo/navegador não suporta compartilhamento de localização.');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude, accuracy } = position.coords || {};
+        if (typeof latitude !== 'number' || typeof longitude !== 'number') {
+          alert('Não foi possível obter a localização.');
+          return;
+        }
+        const nextLocation = {
+          lat: latitude,
+          lng: longitude,
+          accuracy: typeof accuracy === 'number' ? accuracy : null,
+          timestamp: Date.now()
+        };
+        setDeliveryLocation(nextLocation);
+
+        const locationLink = `https://www.google.com/maps?q=${nextLocation.lat},${nextLocation.lng}`;
+        let locationMessage = `📌 *LOCALIZAÇÃO DO CLIENTE*\n`;
+        locationMessage += `Lat: ${nextLocation.lat}\n`;
+        locationMessage += `Lng: ${nextLocation.lng}\n`;
+        locationMessage += `Mapa: ${locationLink}\n`;
+        if (nextLocation.accuracy) {
+          locationMessage += `Precisão aprox.: ${Math.round(nextLocation.accuracy)}m\n`;
+        }
+        openWhatsappWithText(locationMessage);
+      },
+      () => {
+        alert('Não foi possível obter a localização. Verifique as permissões do navegador.');
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+    );
+  };
+
   const handleCheckout = () => {
     // Formatação da mensagem para WhatsApp com emojis em cascata
-    const phoneNumber = "5561992864160"; // número configurado
     let message = "🧾 *PEDIDO – ICEBERG HOT DOG*\n";
     if (!fullName || fullName.trim() === '') {
       alert("Informe o Nome completo antes de finalizar o pedido.");
@@ -64,11 +116,10 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, varian
         (street && street.trim() !== '') &&
         (number && number.trim() !== '') &&
         (neighborhood && neighborhood.trim() !== '') &&
-        (city && city.trim() !== '') &&
         (stateUf && stateUf.trim() !== '') &&
         (paymentMethod && paymentMethod !== '');
       if (!requiredFilled) {
-        alert("Para entrega, preencha Nome completo, WhatsApp, CEP, Rua, Número, Bairro, Cidade, UF e Forma de Pagamento.");
+        alert("Para entrega, preencha Nome completo, WhatsApp, CEP, Rua, Número, Bairro, UF e Forma de Pagamento.");
         return;
       }
     }
@@ -98,7 +149,6 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, varian
       const addressLine = [
         street && street.trim() ? street.trim() : '',
         number && number.trim() ? `Nº ${number.trim()}` : '',
-        complement && complement.trim() ? complement.trim() : '',
         neighborhood && neighborhood.trim() ? neighborhood.trim() : '',
         city && city.trim() ? city.trim() : '',
         stateUf && stateUf.trim() ? stateUf.trim() : ''
@@ -106,11 +156,22 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, varian
         .filter(Boolean)
         .join(', ');
 
+      const locationLink =
+        deliveryLocation && typeof deliveryLocation.lat === 'number' && typeof deliveryLocation.lng === 'number'
+          ? `https://www.google.com/maps?q=${deliveryLocation.lat},${deliveryLocation.lng}`
+          : '';
+
       message += `🚚 *ENTREGA*\n`;
       message += `  👤 Nome: ${fullName || 'Não informado'}\n`;
       message += `  📞 WhatsApp: ${whatsapp || 'Não informado'}\n`;
       message += `  📍 Endereço: ${addressLine || 'Não informado'}\n`;
       message += `  🏷️ CEP: ${cep || 'Não informado'}\n`;
+      if (locationLink) {
+        message += `  📌 Localização: ${locationLink}\n`;
+        if (deliveryLocation.accuracy) {
+          message += `  🎯 Precisão aprox.: ${Math.round(deliveryLocation.accuracy)}m\n`;
+        }
+      }
       if (deliveryNotes) {
         message += `  📝 Observações: ${deliveryNotes}\n`;
       }
@@ -139,8 +200,7 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, varian
     message += `———————————————\n`;
     message += '✅ Aguarde a confirmação e obrigado pelo preferência!';
 
-    const encodedMessage = encodeURIComponent(message);
-    window.location.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    openWhatsappWithText(message);
   };
 
   if (!isOpen) return null;
@@ -189,9 +249,11 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, varian
             <h2 className="text-xl font-bold text-white">
               {step === 'review' ? 'Revisar Pedido' : 'Finalizar Pedido'}
             </h2>
-            <span className="bg-iceberg/20 text-iceberg text-xs font-bold px-2 py-0.5 rounded-full border border-iceberg/30">
-              {cart.length} itens
-            </span>
+            {step === 'review' && (
+              <span className="bg-iceberg/20 text-iceberg text-xs font-bold px-2 py-0.5 rounded-full border border-iceberg/30">
+                {cart.length} itens
+              </span>
+            )}
           </div>
           <button 
             onClick={onClose}
@@ -350,32 +412,23 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, varian
                             inputMode="numeric"
                             className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-iceberg transition-colors"
                           />
-                          <input
-                            type="text"
-                            placeholder="Complemento"
-                            value={complement}
-                            onChange={(e) => setComplement(e.target.value)}
-                            name="address-line2"
-                            autoComplete="shipping address-line2"
-                            autoCapitalize="words"
-                            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-iceberg transition-colors"
-                          />
+                          <button
+                            type="button"
+                            onClick={handleGetLocation}
+                            className={`w-full border rounded-lg px-3 py-2 text-sm font-bold transition-colors ${
+                              deliveryLocation
+                                ? 'bg-iceberg/20 text-iceberg border-iceberg/30'
+                                : 'bg-white/5 text-white border-white/10 hover:border-white/30'
+                            }`}
+                          >
+                            {deliveryLocation ? 'Localização enviada' : 'Enviar minha localização'}
+                          </button>
                         </div>
                         <input
                           type="text"
                           placeholder="Bairro"
                           value={neighborhood}
                           onChange={(e) => setNeighborhood(e.target.value)}
-                          autoCapitalize="words"
-                          className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-iceberg transition-colors"
-                        />
-                        <input
-                          type="text"
-                          placeholder="Cidade"
-                          value={city}
-                          onChange={(e) => setCity(e.target.value)}
-                          name="address-level2"
-                          autoComplete="shipping address-level2"
                           autoCapitalize="words"
                           className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-iceberg transition-colors"
                         />

@@ -27,26 +27,25 @@ export default function FloatingCartButton({ cartCount, onClick }) {
     <motion.button
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
-      whileHover={{ scale: 1.05 }}
+      whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
-      className="fixed bottom-6 right-6 z-[100] flex items-center justify-center p-4 bg-[#0077FF] text-white rounded-full shadow-[0_0_20px_rgba(0,119,255,0.5)] border border-white/10 backdrop-blur-sm hover:bg-[#0066CC] transition-colors"
+      className="fixed left-1/2 -translate-x-1/2 bottom-6 z-[100] w-[min(92vw,560px)] flex items-center justify-center gap-3 px-6 py-4 bg-[#0077FF] text-white rounded-2xl shadow-[0_0_20px_rgba(0,119,255,0.45)] border border-white/10 backdrop-blur-sm hover:bg-[#0066CC] transition-colors"
     >
-      <div className="relative">
-        <ShoppingBag size={24} />
-        <AnimatePresence>
-          {cartCount > 0 && (
-            <motion.span
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0 }}
-              className="absolute -top-2 -right-2 flex items-center justify-center w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full border border-[#001529]"
-            >
-              {cartCount}
-            </motion.span>
-          )}
-        </AnimatePresence>
-      </div>
+      <ShoppingBag size={20} />
+      <span className="font-black tracking-wide">FINALIZAR SEU PEDIDO</span>
+      <AnimatePresence>
+        {cartCount > 0 && (
+          <motion.span
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            className="ml-1 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full bg-white/15 border border-white/20 text-white text-sm font-black"
+          >
+            {cartCount}
+          </motion.span>
+        )}
+      </AnimatePresence>
     </motion.button>
   );
 }

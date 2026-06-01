@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Plus, Minus, ShoppingBag, ChevronLeft } from 'lucide-react';
+import { X, Plus, Minus, ShoppingBag, ChevronLeft, Search } from 'lucide-react';
 import { addonsData } from '../data/addons';
 
 export default function ProductDetails({ product, onClose, onAddToCart }) {
@@ -8,6 +8,7 @@ export default function ProductDetails({ product, onClose, onAddToCart }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [isAdding, setIsAdding] = useState(false);
   const [productQty, setProductQty] = useState(1);
+  const [isImagePreviewOpen, setIsImagePreviewOpen] = useState(false);
 
   const isBeverageCollection = product?.type === 'beverage_collection' || (product?.beverages && Array.isArray(product.beverages));
 
@@ -131,6 +132,44 @@ export default function ProductDetails({ product, onClose, onAddToCart }) {
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-[110] flex flex-col bg-black/90 backdrop-blur-xl overflow-hidden"
     >
+      <AnimatePresence>
+        {isImagePreviewOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[140] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setIsImagePreviewOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.98, y: 10 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.98, y: 10 }}
+              className="relative w-full max-w-5xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setIsImagePreviewOpen(false)}
+                className="absolute -top-3 -right-3 z-10 p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-colors"
+                aria-label="Fechar imagem"
+              >
+                <X size={18} />
+              </button>
+              <img
+                src={product.img}
+                alt={product.name}
+                className="w-full max-h-[90vh] object-contain rounded-2xl border border-white/10 bg-black/30"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = 'https://placehold.co/1200x900/1e293b/white?text=ICEBERG';
+                }}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Header / Top Navigation */}
       <div className="absolute top-0 left-0 w-full p-4 z-20 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent">
         <button 
@@ -145,6 +184,12 @@ export default function ProductDetails({ product, onClose, onAddToCart }) {
       <div className="flex-1 overflow-y-auto pb-48 no-scrollbar">
         {/* Product Image & Info */}
         <div className="relative w-full h-72 shrink-0">
+            <button
+                type="button"
+                aria-label="Ver imagem em tamanho completo"
+                onClick={() => setIsImagePreviewOpen(true)}
+                className="absolute inset-0 z-10 cursor-zoom-in"
+            />
             <img 
                 src={product.img} 
                 alt={product.name} 
@@ -155,8 +200,17 @@ export default function ProductDetails({ product, onClose, onAddToCart }) {
                 }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#001529] via-transparent to-transparent" />
+
+            <button
+              type="button"
+              onClick={() => setIsImagePreviewOpen(true)}
+              aria-label="Ampliar imagem"
+              className="absolute top-4 right-4 z-30 p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-colors"
+            >
+              <Search size={18} />
+            </button>
             
-            <div className="absolute bottom-0 left-0 w-full p-6">
+            <div className="absolute bottom-0 left-0 w-full p-6 z-20">
                 <h2 className="text-3xl font-black text-white leading-tight mb-2 drop-shadow-lg">
                     {product.name}
                 </h2>
