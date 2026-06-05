@@ -158,9 +158,7 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, varian
       message += `  🏷️ CEP: ${cep || 'Não informado'}\n`;
       if (locationLink) {
         message += `  📌 Localização: ${locationLink}\n`;
-        if (deliveryLocation.accuracy) {
-          message += `  🎯 Precisão aprox.: ${Math.round(deliveryLocation.accuracy)}m\n`;
-        }
+        message += `  ⏱️ Previsão de entrega aprox.: 60 minutos\n`;
       }
       if (deliveryNotes) {
         message += `  📝 Observações: ${deliveryNotes}\n`;
