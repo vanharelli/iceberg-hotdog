@@ -21,7 +21,7 @@ export default function FloatingCartButton({ cartCount, onClick }) {
   // I'll keep it visible so they can access the empty cart too if they want, 
   // but usually it's better if it's always there to remind them.
   
-  if (!isVisible) return null;
+  if (!isVisible || cartCount <= 0) return null;
 
   return (
     <motion.button

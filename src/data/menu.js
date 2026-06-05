@@ -156,33 +156,6 @@ export const menuData = [
     ]
   },
   {
-    category: "REFRIGERANTES E SUCOS EM LATA",
-    items: [
-      {
-        id: "bebidas-lata",
-        name: "Refrigerantes e Sucos (Lata)",
-        description: "Seleção de refrigerantes e sucos em lata bem gelados.",
-        price: "",
-        img: "/bebidas.png",
-        isSpecial: false,
-        type: "beverage_collection",
-        beverages: [
-          { id: "lata-coca", name: "Coca-Cola (Lata)", price: 7.00 },
-          { id: "lata-coca-zero", name: "Coca-Cola Zero (Lata)", price: 7.00 },
-          { id: "lata-guarana", name: "Guaraná (Lata)", price: 7.00 },
-          { id: "lata-guarana-zero", name: "Guaraná Zero (Lata)", price: 7.00 },
-          { id: "lata-fanta-laranja", name: "Fanta Laranja (Lata)", price: 7.00 },
-          { id: "lata-fanta-uva", name: "Fanta Uva (Lata)", price: 7.00 },
-          { id: "lata-schweppes", name: "Schweppes (Lata)", price: 7.00 },
-          { id: "lata-sprite", name: "Sprite (Lata)", price: 7.00 },
-          { id: "lata-suco-uva", name: "Suco Variado Uva (Lata)", price: 7.00 },
-          { id: "lata-suco-maracuja", name: "Suco Variado Maracujá (Lata)", price: 7.00 },
-          { id: "lata-suco-pessego", name: "Suco Variado Pêssego (Lata)", price: 7.00 }
-        ]
-      }
-    ]
-  },
-  {
     category: "BEBIDAS E SUCOS NATURAIS",
     items: [
       {
