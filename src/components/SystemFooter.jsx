@@ -7,6 +7,9 @@ export default function SystemFooter() {
   return (
     <footer className="w-full py-16 border-t border-white/5 bg-transparent">
       <div className="max-w-5xl mx-auto px-6 flex flex-col items-center gap-10">
+        <span className="shimmer-hotdog text-2xl sm:text-3xl font-black tracking-tight">
+          ICEBERG HOT DOG
+        </span>
         <div className="flex flex-col items-center gap-2">
           <button
             onClick={() => setShowTerms(true)}

@@ -9,6 +9,7 @@ import CartDrawer from './components/CartDrawer';
 import FloatingCartButton from './components/FloatingCartButton';
 import { menuData } from './data/menu';
 import ReviewTicker from './components/ReviewTicker';
+import Preloader from './components/Preloader';
 import { preloadImages } from './logic/PreloadEngine';
 
 class NotificationErrorBoundary extends React.Component {
@@ -52,6 +53,7 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const visibilityReloadedRef = useRef(false);
 
   useEffect(() => {
@@ -168,6 +170,7 @@ function App() {
 
   return (
     <div className="app-container">
+      {!loaded && <Preloader onComplete={() => setLoaded(true)} />}
       <div className="min-h-screen bg-[#001529] relative overflow-x-hidden">
       {/* Background Image Layer */}
       <div className="fixed inset-0 z-0">
@@ -192,24 +195,39 @@ function App() {
         </div>
 
         <main className="flex-grow min-h-screen w-full pt-24 md:pt-28">
-          {/* Hero Section */}
-          <div className="w-full text-center space-y-4 mb-4">
-              <div className="flex justify-center">
+          {/* Hero Section — animações de entrada só após o preloader terminar */}
+          <motion.div
+            className="w-full text-center space-y-4 mb-4"
+            initial={{ opacity: 0, y: 28 }}
+            animate={loaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+              <motion.div
+                className="flex justify-center"
+                initial={{ opacity: 0, y: 16 }}
+                animate={loaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+                transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+              >
                 <NotificationErrorBoundary>
                   <StatusBadge />
                 </NotificationErrorBoundary>
-              </div>
-              
-              <div className="space-y-2">
-                <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter drop-shadow-2xl">
-                  ICEBERG <br />
+              </motion.div>
+
+              <motion.div
+                className="space-y-2"
+                initial={{ opacity: 0, y: 20 }}
+                animate={loaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.7, ease: 'easeOut', delay: 0.22 }}
+              >
+                <h1 className="text-4xl md:text-6xl font-black tracking-tighter drop-shadow-2xl">
+                  <span className="shimmer-hotdog">ICEBERG</span> <br />
                   <span className="shimmer-hotdog">HOT DOG</span>
                 </h1>
                 <p className="text-gray-400 font-medium text-lg tracking-wide drop-shadow-md">
-                    O Sabor que Afunda sua Fome.
+                    O sabor artesanal que afunda a sua fome.
                 </p>
-              </div>
-          </div>
+              </motion.div>
+          </motion.div>
 
           {/* Categorias Dinâmicas */}
           {menuData.map((category) => (
