@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import gsap from 'gsap';
 
 /**
  * Tela de carregamento (preloader).
- * - Cobre a tela inteira em preto (fixed, inset-0, z-index alto).
+ * - Cobre a tela inteira com fundo azul (fixed, inset-0, z-index alto).
  * - Centro: logo + nome da marca, barra de progresso fina e contador 0% → 100%.
  * - GSAP anima o contador e a barra juntos (~1,8s), depois o conteúdo some
  *   com leve fade/subida e a tela desliza para cima (efeito cortina).
@@ -100,28 +101,39 @@ export default function Preloader({ onComplete }) {
   return (
     <div
       ref={rootRef}
-      className="fixed inset-0 z-[300] flex items-center justify-center bg-black overflow-hidden"
+      className="fixed inset-0 z-[300] flex items-center justify-center bg-[#001529] overflow-hidden"
       aria-hidden="true"
     >
-      {/* Brilho sutil de fundo */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.10),transparent_60%)]" />
+      {/* Fundo azul — exclusivo da tela de loading */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#013a63] via-[#001f3a] to-[#00070f]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.18),transparent_62%)]" />
 
-      <div ref={centerRef} className="relative flex flex-col items-center w-[min(78vw,360px)]">
-        {/* Logo + nome da marca */}
-        <img
+      <div ref={centerRef} className="relative flex flex-col items-center w-[min(82vw,380px)]">
+        {/* Logo com motion hipnótico (PC e mobile) */}
+        <motion.img
           src="/logo-iceberg.png"
           alt="Iceberg Hot Dog"
-          className="h-20 w-auto object-contain drop-shadow-[0_0_25px_rgba(34,211,238,0.45)]"
+          className="h-36 sm:h-44 max-w-[78vw] w-auto object-contain"
+          animate={{
+            y: [0, -10, 0],
+            scale: [1, 1.05, 1],
+            rotate: [-2.5, 2.5, -2.5],
+            filter: [
+              'drop-shadow(0 0 8px rgba(34,211,238,0.35))',
+              'drop-shadow(0 0 30px rgba(34,211,238,0.85))',
+              'drop-shadow(0 0 8px rgba(34,211,238,0.35))',
+            ],
+          }}
+          transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
         />
-        <h1 className="mt-5 text-xl font-black tracking-[0.35em] text-white text-center">
-          ICEBERG
-          <span className="block mt-1 text-sm font-bold tracking-[0.5em] text-iceberg">
-            HOT DOG
-          </span>
+        <h1 className="mt-4 text-3xl sm:text-5xl font-black tracking-tighter text-center leading-[0.95] drop-shadow-2xl">
+          <span className="shimmer-hotdog">ICEBERG</span>
+          <br />
+          <span className="shimmer-hotdog">HOT DOG</span>
         </h1>
 
         {/* Barra de progresso fina */}
-        <div className="mt-9 w-full h-[3px] rounded-full bg-white/10 overflow-hidden">
+        <div className="mt-10 w-full h-[3px] rounded-full bg-white/10 overflow-hidden">
           <div
             ref={barRef}
             className="h-full w-full origin-left rounded-full bg-gradient-to-r from-[#0077FF] to-iceberg"

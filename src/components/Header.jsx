@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { MapPin, Star, Instagram, Download, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import StatusBadge from './StatusBadge';
+import NotificationErrorBoundary from './NotificationErrorBoundary';
 
 export default function Header({ cartCount = 0, onCartClick }) {
   const [showInstall, setShowInstall] = useState(true);
@@ -129,25 +131,11 @@ export default function Header({ cartCount = 0, onCartClick }) {
         <Menu size={26} />
       </button>
 
-      {/* Logo centralizada */}
+      {/* Badge de horário centralizado (no lugar da logo) */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <motion.div
-          className="h-14 sm:h-16 w-auto bg-transparent cursor-pointer flex items-center justify-center"
-          whileHover={{ scale: 1.8, filter: 'drop-shadow(0 0 30px rgba(34,211,238,1))' }}
-          animate={{
-            filter: [
-              'drop-shadow(0 0 0px rgba(6,182,212,0))',
-              'drop-shadow(0 0 10px rgba(6,182,212,0.5))',
-              'drop-shadow(0 0 0px rgba(6,182,212,0))',
-            ],
-          }}
-          transition={{
-            default: { duration: 0.3, ease: 'easeOut' },
-            filter: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
-          }}
-        >
-          <img src="/logo-iceberg.png" alt="Logo Iceberg" className="h-full w-auto object-contain" />
-        </motion.div>
+        <NotificationErrorBoundary>
+          <StatusBadge />
+        </NotificationErrorBoundary>
       </div>
 
       {/* Ícones de navegação — visíveis apenas no desktop */}

@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Header from './components/Header';
 import Carousel from './components/Carousel';
 import SystemFooter from './components/SystemFooter';
-import StatusBadge from './components/StatusBadge';
 import ProductDetails from './components/ProductDetails';
 import CartDrawer from './components/CartDrawer';
 import FloatingCartButton from './components/FloatingCartButton';
@@ -12,24 +11,28 @@ import ReviewTicker from './components/ReviewTicker';
 import Preloader from './components/Preloader';
 import { preloadImages } from './logic/PreloadEngine';
 
-class NotificationErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
+// Preloader: exibido no máximo 1x a cada 24h. Usa localStorage, que zera
+// automaticamente se o usuário limpar os dados/histórico do dispositivo.
+const PRELOADER_STORAGE_KEY = 'iceberg:preloader:lastShown';
+const PRELOADER_TTL_MS = 24 * 60 * 60 * 1000; // 24 horas
 
-  static getDerivedStateFromError() {
-    return { hasError: true };
+function shouldShowPreloader() {
+  try {
+    const last = window.localStorage.getItem(PRELOADER_STORAGE_KEY);
+    if (!last) return true;
+    const ts = parseInt(last, 10);
+    if (!Number.isFinite(ts)) return true;
+    return Date.now() - ts > PRELOADER_TTL_MS;
+  } catch (_) {
+    // Se o storage estiver indisponível, exibe normalmente
+    return true;
   }
+}
 
-  componentDidCatch() {}
-
-  render() {
-    if (this.state.hasError) {
-      return null;
-    }
-    return this.props.children;
-  }
+function markPreloaderShown() {
+  try {
+    window.localStorage.setItem(PRELOADER_STORAGE_KEY, Date.now().toString());
+  } catch (_) {}
 }
 
 const PRIORITY_IMAGE_IDS = (() => {
@@ -53,8 +56,16 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(() => !shouldShowPreloader());
   const visibilityReloadedRef = useRef(false);
+
+  // Marca que o preloader foi exibido nesta janela de 24h (apenas na montagem)
+  useEffect(() => {
+    if (!loaded) {
+      markPreloaderShown();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (window.location.search) {
@@ -198,7 +209,7 @@ function App() {
           <ReviewTicker />
         </div>
 
-        <main className="flex-grow min-h-screen w-full pt-24 md:pt-28">
+        <main className="flex-grow min-h-screen w-full pt-32 md:pt-36">
           {/* Hero Section — animações de entrada só após o preloader terminar */}
           <motion.div
             className="w-full text-center space-y-4 mb-4"
@@ -212,9 +223,23 @@ function App() {
                 animate={loaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
                 transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
               >
-                <NotificationErrorBoundary>
-                  <StatusBadge />
-                </NotificationErrorBoundary>
+                <motion.img
+                  src="/logo-iceberg.png"
+                  alt="Iceberg Hot Dog"
+                  className="h-36 sm:h-44 max-w-[78vw] w-auto object-contain"
+                  animate={{
+                    y: [0, -10, 0],
+                    scale: [1, 1.05, 1],
+                    rotate: [-2.5, 2.5, -2.5],
+                    filter: [
+                      'drop-shadow(0 0 8px rgba(34,211,238,0.35))',
+                      'drop-shadow(0 0 30px rgba(34,211,238,0.85))',
+                      'drop-shadow(0 0 8px rgba(34,211,238,0.35))',
+                    ],
+                  }}
+                  transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+                  whileHover={{ scale: 1.12 }}
+                />
               </motion.div>
 
               <motion.div
