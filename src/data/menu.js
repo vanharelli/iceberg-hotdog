@@ -154,30 +154,18 @@ export const menuData = [
         type: "food"
       }
     ]
-  },
-  {
-    category: "BEBIDAS E SUCOS NATURAIS",
-    items: [
-      {
-        id: "bebidas-naturais",
-        name: "Bebidas e Sucos Naturais",
-        description: "Sucos naturais, vitaminas e águas.",
-        price: "",
-        img: "/bebidas.png",
-        isSpecial: false,
-        type: "beverage_collection",
-        beverages: [
-          { id: "nat-suco-laranja", name: "Suco Natural (Laranja)", price: 12.00 },
-          { id: "nat-suco-limao", name: "Suco Natural (Limão)", price: 12.00 },
-          { id: "nat-suco-abacaxi", name: "Suco Natural (Abacaxi)", price: 12.00 },
-          { id: "nat-vit-mamao", name: "Vitamina (Mamão)", price: 12.00 },
-          { id: "nat-vit-banana", name: "Vitamina (Banana)", price: 12.00 },
-          { id: "nat-vit-abacate", name: "Vitamina (Abacate)", price: 12.00 },
-          { id: "nat-agua-sg", name: "Água (Sem Gás)", price: 4.00 },
-          { id: "nat-agua-cg", name: "Água (Com Gás)", price: 4.00 },
-          { id: "nat-agua-coco", name: "Água de Coco Verde", price: 10.00 }
-        ]
-      }
-    ]
   }
+];
+
+// Bebidas e sucos: selecionados dentro do carrinho, antes de finalizar o pedido.
+export const beverages = [
+  { id: "nat-suco-laranja", name: "Suco Natural (Laranja)", price: 12.00 },
+  { id: "nat-suco-limao", name: "Suco Natural (Limão)", price: 12.00 },
+  { id: "nat-suco-abacaxi", name: "Suco Natural (Abacaxi)", price: 12.00 },
+  { id: "nat-vit-mamao", name: "Vitamina (Mamão)", price: 12.00 },
+  { id: "nat-vit-banana", name: "Vitamina (Banana)", price: 12.00 },
+  { id: "nat-vit-abacate", name: "Vitamina (Abacate)", price: 12.00 },
+  { id: "nat-agua-sg", name: "Água (Sem Gás)", price: 4.00 },
+  { id: "nat-agua-cg", name: "Água (Com Gás)", price: 4.00 },
+  { id: "nat-agua-coco", name: "Água de Coco Verde", price: 10.00 }
 ];

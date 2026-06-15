@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { X, Trash2, ShoppingBag, ArrowRight, ChevronUp, ChevronDown, ChevronLeft } from 'lucide-react';
+import { X, Trash2, ShoppingBag, ArrowRight, ChevronUp, ChevronDown, ChevronLeft, Plus, Minus, GlassWater } from 'lucide-react';
+import { beverages } from '../data/menu';
 
-export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, variant = 'drawer' }) {
+const isBeverage = (item) => typeof item?.id === 'string' && item.id.startsWith('nat-');
+
+export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, onAddItem, variant = 'drawer' }) {
   const phoneNumber = "5561992864160";
   const [step, setStep] = useState('review');
   const [orderType, setOrderType] = useState('pickup'); // 'delivery' or 'pickup'
@@ -24,6 +27,32 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, varian
 
   const formatPrice = (price) => {
     return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  };
+
+  // Lanches e bebidas são separados na revisão: lanches viram cards,
+  // bebidas são controladas pelo módulo de seleção logo abaixo.
+  const foodItems = cart.filter((item) => !isBeverage(item));
+
+  const beverageQty = (bevId) => cart.filter((item) => item.id === bevId).length;
+
+  const addBeverage = (bev) => {
+    if (!onAddItem) return;
+    onAddItem({
+      id: bev.id,
+      name: bev.name,
+      originalName: bev.name,
+      img: '/bebidas.png',
+      finalPrice: bev.price,
+      selectedAddons: [],
+      cartId: `${bev.id}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    });
+  };
+
+  const removeOneBeverage = (bevId) => {
+    const matches = cart.filter((item) => item.id === bevId);
+    if (matches.length > 0) {
+      onRemoveItem(matches[matches.length - 1].cartId);
+    }
   };
 
   useEffect(() => {
@@ -115,7 +144,7 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, varian
     }
 
     cart.forEach((item, index) => {
-      const emoji = item.id && item.id.startsWith('burg-') ? '🍔' : '🌭';
+      const emoji = isBeverage(item) ? '🥤' : item.id && item.id.startsWith('burg-') ? '🍔' : '🌭';
       const productName = (item.originalName || item.name || '').trim();
       const addons = Array.isArray(item.selectedAddons) ? item.selectedAddons.filter(Boolean) : [];
 
@@ -253,51 +282,110 @@ export default function CartDrawer({ isOpen, onClose, cart, onRemoveItem, varian
 
         <div className="flex-1 overflow-y-auto p-6 space-y-4 no-scrollbar">
           {step === 'review' ? (
-            cart.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-center space-y-4 opacity-50">
-                <ShoppingBag size={64} className="text-gray-500" />
-                <p className="text-gray-400 font-medium">Seu carrinho está vazio.</p>
-                <button onClick={onClose} className="text-iceberg font-bold hover:underline">
-                  Voltar ao cardápio
-                </button>
-              </div>
-            ) : (
-              cart.map((item, index) => (
-                <motion.div
-                  key={item.cartId || index}
-                  layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="flex gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors group"
-                >
-                  <div className="w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-black/20">
-                    <img src={item.img} alt={item.originalName} className="w-full h-full object-cover" />
-                  </div>
+            <div className="space-y-6">
+              {foodItems.length === 0 ? (
+                <div className="flex flex-col items-center justify-center text-center space-y-3 py-8 opacity-60">
+                  <ShoppingBag size={56} className="text-gray-500" />
+                  <p className="text-gray-400 font-medium">Nenhum lanche no carrinho ainda.</p>
+                  <button onClick={onClose} className="text-iceberg font-bold hover:underline">
+                    Ver cardápio
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {foodItems.map((item, index) => (
+                    <motion.div
+                      key={item.cartId || index}
+                      layout
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      className="flex gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors group"
+                    >
+                      <div className="w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-black/20">
+                        <img src={item.img} alt={item.originalName} className="w-full h-full object-cover" />
+                      </div>
 
-                  <div className="flex-1 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-white font-bold text-sm line-clamp-2 leading-tight">{item.name}</h3>
-                      {item.selectedAddons && item.selectedAddons.length > 0 && (
-                        <p className="text-xs text-gray-400 mt-1 line-clamp-1">
-                          Com: {item.selectedAddons.map(a => a.name).join(', ')}
-                        </p>
-                      )}
-                    </div>
-                    <div className="flex items-center justify-between mt-2">
-                      <span className="text-iceberg font-bold">{formatPrice(item.finalPrice)}</span>
-                      <button
-                        onClick={() => onRemoveItem(item.cartId)}
-                        className="p-1.5 rounded-lg text-gray-500 hover:text-red-400 hover:bg-red-400/10 transition-colors"
-                        title="Remover item"
+                      <div className="flex-1 flex flex-col justify-between">
+                        <div>
+                          <h3 className="text-white font-bold text-sm line-clamp-2 leading-tight">{item.name}</h3>
+                          {item.selectedAddons && item.selectedAddons.length > 0 && (
+                            <p className="text-xs text-gray-400 mt-1 line-clamp-1">
+                              Com: {item.selectedAddons.map(a => a.name).join(', ')}
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex items-center justify-between mt-2">
+                          <span className="text-iceberg font-bold">{formatPrice(item.finalPrice)}</span>
+                          <button
+                            onClick={() => onRemoveItem(item.cartId)}
+                            className="p-1.5 rounded-lg text-gray-500 hover:text-red-400 hover:bg-red-400/10 transition-colors"
+                            title="Remover item"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+
+              {/* Módulo de bebidas — selecione antes de finalizar */}
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] overflow-hidden">
+                <div className="px-4 py-3 border-b border-white/10 flex items-center gap-2 bg-gradient-to-b from-white/5 to-transparent">
+                  <GlassWater size={18} className="text-iceberg" />
+                  <h3 className="text-sm font-bold text-white tracking-wide">
+                    Bebidas &amp; Sucos Naturais
+                  </h3>
+                  <span className="ml-auto text-[10px] uppercase tracking-wider text-gray-500">
+                    Opcional
+                  </span>
+                </div>
+                <div className="p-3 space-y-2">
+                  {beverages.map((bev) => {
+                    const qty = beverageQty(bev.id);
+                    return (
+                      <div
+                        key={bev.id}
+                        className={`flex items-center justify-between gap-3 p-3 rounded-xl border transition-colors ${
+                          qty > 0
+                            ? 'bg-[#0077FF]/10 border-[#0077FF]/40'
+                            : 'bg-white/5 border-white/10'
+                        }`}
                       >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              ))
-            )
+                        <div className="min-w-0">
+                          <p className={`text-sm font-medium truncate ${qty > 0 ? 'text-white' : 'text-gray-300'}`}>
+                            {bev.name}
+                          </p>
+                          <p className="text-xs text-iceberg font-bold">{formatPrice(bev.price)}</p>
+                        </div>
+                        <div className="flex items-center gap-3 shrink-0">
+                          <button
+                            onClick={() => removeOneBeverage(bev.id)}
+                            disabled={qty === 0}
+                            className="w-9 h-9 min-h-0 rounded-full flex items-center justify-center border border-white/20 text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/10 transition-colors"
+                            aria-label={`Remover ${bev.name}`}
+                          >
+                            <Minus size={15} />
+                          </button>
+                          <span className={`w-5 text-center font-bold ${qty > 0 ? 'text-[#0077FF]' : 'text-gray-500'}`}>
+                            {qty}
+                          </span>
+                          <button
+                            onClick={() => addBeverage(bev)}
+                            className="w-9 h-9 min-h-0 rounded-full flex items-center justify-center bg-[#0077FF] text-white hover:bg-[#0066CC] active:scale-95 transition-all"
+                            aria-label={`Adicionar ${bev.name}`}
+                          >
+                            <Plus size={15} />
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
           ) : (
             <div className="space-y-4">
               <div className="space-y-2">

@@ -168,6 +168,10 @@ function App() {
     setCart(prev => prev.filter(item => item.cartId !== cartId));
   };
 
+  const handleAddItem = (cartItem) => {
+    setCart(prev => [...prev, cartItem]);
+  };
+
   return (
     <div className="app-container">
       {!loaded && <Preloader onComplete={() => setLoaded(true)} />}
@@ -262,11 +266,12 @@ function App() {
 
       <AnimatePresence>
         {isCartOpen && (
-          <CartDrawer 
+          <CartDrawer
             isOpen={isCartOpen}
             onClose={() => setIsCartOpen(false)}
             cart={cart}
             onRemoveItem={handleRemoveItem}
+            onAddItem={handleAddItem}
             variant="screen"
           />
         )}
