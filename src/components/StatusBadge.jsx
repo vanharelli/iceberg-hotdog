@@ -73,7 +73,7 @@ export default function StatusBadge() {
                     animate={{ opacity: 1, y: 10, scale: 1 }}
                     exit={{ opacity: 0, y: -10, scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full mt-2 w-[min(20rem,calc(100vw-2rem))] z-[10] bg-[#001529]/60 backdrop-blur-2xl border border-[#0077FF]/40 rounded-2xl shadow-2xl overflow-hidden"
+                    className="absolute top-full mt-2 w-[min(20rem,calc(100vw-2rem))] z-[10] bg-[#001529]/95 backdrop-blur-2xl border border-[#0077FF]/40 rounded-2xl shadow-2xl overflow-hidden"
                 >
                     <div className="p-4 space-y-3 bg-gradient-to-b from-white/5 to-transparent">
                         <div className="flex items-center justify-between border-b border-[#0077FF]/30 pb-2 mb-2">

@@ -77,55 +77,15 @@ button {
   justify-content: center;
 }
 
+/* Estado/escala do card são controlados pelo framer-motion (animate);
+   aqui só o necessário para o primeiro paint, sem transition para não
+   conflitar com a animação. */
 .carousel-card {
-  opacity: 0.5;
-  transform: scale(0.9);
-  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity: 0.45;
+  transform: scale(0.8);
 }
 
-.active-card {
-  opacity: 1;
-  transform: scale(1.05);
-  border: 2px solid #0077FF;
-}
-
-/* Indicador de "deslize para ver mais" — padrão de cor do Iceberg (ciano + brilho) */
-.carousel-scroll::after {
-  content: '❯';
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 18px;
-  font-weight: 700;
-  color: #22d3ee;
-  text-shadow: 0 0 12px rgba(34, 211, 238, 0.85), 0 0 4px rgba(0, 119, 255, 0.6);
-  pointer-events: none;
-  animation: iceberg-arrow-pulse 1.4s ease-in-out infinite;
-}
-
-@media (min-width: 1024px) {
-  .carousel-scroll::after {
-    right: 14px;
-    font-size: 20px;
-    text-shadow: 0 0 14px rgba(34, 211, 238, 0.85), 0 0 5px rgba(0, 119, 255, 0.6);
-  }
-}
-
-@keyframes iceberg-arrow-pulse {
-  0% {
-    opacity: 0;
-    transform: translateY(-50%) translateX(0);
-  }
-  50% {
-    opacity: 1;
-    transform: translateY(-50%) translateX(4px);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-50%) translateX(8px);
-  }
-}
+/* As setas do carrossel agora são botões interativos (ver Carousel.jsx). */
 
 .review-ticker-text {
   color: #ffffff;
